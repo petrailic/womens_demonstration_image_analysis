@@ -40,12 +40,12 @@ The preparatory step for utilizing the analytical tools involved ensuring data a
 ![image 6](appendix/S3_bucket.PNG)
 
 ## Second step: Data Recognition
-The AWS Rekognition service was selected for the text extraction phase due to its superior efficacy in handling creative, non standard, and artistically hand made text present on the protest banners. Amazon Rekognition excels in accurately identifying text under these challenging conditions, which often pose difficulties for standard programs. The recognition code first initiates by accessing and retrieving the image data directly from the previously provisioned S3 bucket. A modification was integrated into the standard class script to immediately generate a literal, word-for-word translation of the identified phrases. The output of this crucial step is a clean dataset of the original phrases in Spanish, exactly as displayed on the protest posters, prepared for the subsequent stages.
+The AWS Rekognition service was selected for the text extraction phase due to its superior efficacy in handling creative, non standard, and artistically hand made text present on the protest banners. Amazon Rekognition excels in accurately identifying text under these challenging conditions, which often pose difficulties for standard programs. The recognition code first initiates by accessing and retrieving the image data directly from the previously provisioned S3 bucket. Modifications were integrated into the standard class script to immediately generate a literal, word-for-word translation of the identified phrases. The output of this crucial step is a clean dataset of the original phrases in Spanish, exactly as displayed on the protest posters, prepared for the subsequent stages.
 
 ![image 7](appendix/recognition_result.PNG)
 
 ## Third Step: Data Translation
-Following the successful and adequate identification of the banners, the data is ready for the translation phase. This crucial step utilizes a high-utility translation service, to bridge the linguistic gap and facilitate understanding for global audiences. The only modification made to the code provided in class was the accurate identification of the source language to create the expected results. The output of this phase is the English translation of the protest messages, whose accuracy and contextual relevance of these translations were rigorously validated by a project participant who is a native Spanish speaker with direct cultural context of the protests, ensuring the actual purpose of the messages shared globally.
+Following the successful and adequate identification of the banners, the data is ready for the translation phase. This crucial step utilizes a high-utility translation service, to bridge the linguistic gap and facilitate understanding for global audiences. The modificatiosn made to the code provided in class were the accurate identification of the source language to create the expected results and some restructing to process multiple phrases at once. The output of this phase is the English translation of the protest messages, whose accuracy and contextual relevance of these translations were rigorously validated by a project participant who is a native Spanish speaker with direct cultural context of the protests, ensuring the actual purpose of the messages shared globally.
 
 ![image 8](appendix/translation_result.PNG)
 
@@ -59,11 +59,22 @@ The final stage of this analysis involved interpreting the translated protest me
 
 
 ## Results 
-
+The analytical pipeline successfully processed all five protest images, yielding clear extractions, accurate translations, and a structured interpretation of the underlying messages. After the text recognition and translation phases, the combined outputs of the comprehend phase illuminate the protesters’ shared narrative. The banners convey fear and frustration with the systemic violence affecting women in Mexico, but they also express resilience and collective strength. Themes of fearlessness, freedom, survival, dignity, and justice emerged as central to the demonstrators’ messages. The successful identification of these themes confirms the effectiveness of the AWS-based pipeline in capturing not only the literal content of the posters but also their emotional and political messages.
 
 
 ## Conclusion
-The comparative analysis of the results from the AWS tools against the original source imagery demonstrates the outstanding efficacy and accuracy of the implemented methodology. By implementing these tools, the project successfully achieved its objectives to extract, translate, and genuinely interpret the critical messages being articulated by Mexican women during the protests. The data produced accurately reflects the reality of the expressions found on the posters, confirming the utility of these technological solutions for contemporary social and political research. This validated data is now ready to be shared with the international community, establishing a clear communication channel where these vital issues, which transcend nationality and gender, can be openly discussed and brought to the forefront of the global conversation. Furthermore, this project is highly scalable; the established data processing pipeline can be implemented and further developed to analyze future protest data with minimal modification, ensuring its continued relevance.
+A comparative analysis of the results from the AWS tools against the original source imagery demonstrates the outstanding efficacy and accuracy of the implemented methodology. By implementing these tools, the project successfully achieved its objectives to extract, translate, and interpret the critical messages being articulated by Mexican women during the protests. The data produced accurately reflects the reality of the expressions found on the posters, confirming the utility of these technological solutions for contemporary social and political research. This validated data is now ready to be shared with the international community, establishing a clear communication channel where these vital issues, which transcend nationality and gender, can be openly discussed and brought to the forefront of the global conversation. Furthermore, this project is highly scalable; the established data processing pipeline can be implemented and further developed to analyze future protest data with minimal modification, ensuring its continued relevance.
+
+## Estimated Cost of AWS Services
+(**TODO: Determine price per unit for each AWS service**)
+
+**S3**: 5 images (276 KB, 13 KB, 11 KB, 44 KB, 10KB), retreived about 5 times during development
+
+**Rekognition**: 5 images processed about 5 times 
+
+**Translation**: 5 phrases, 28 words translated about 5 times
+
+**Comprehend**: 36 words/162 characters, sentiment and comprehend analysis run about 5 times
 
 ## References
 “El 8-M de Ciudad de México, en imágenes”. (2023, March 8). El País. Recovered from: https://elpais.com/mexico/2023-03-08/el-8m-de-ciudad-de-mexico-en-imagenes.html#foto_gal_2
