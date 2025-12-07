@@ -51,7 +51,7 @@ Following the successful and adequate identification of the banners, the data is
 
 
 ## Fourth Step: Comprehend the Data
-
+The final stage of this analysis involved interpreting the translated protest messages through the AWS Comprehend service. This step focuses on synthesizing the textual data into an overarching understanding of the themes and emotional tone present in the banners. Using sentiment analysis and key-phrase extraction, AWS Comprehend identifies the dominant sentiments expressed in the messages as well as the recurring concepts central to the movement. The resulting outputs provide a structured summary of the protesters’ demands and perspectives, completing the analytical pipeline from visual documentation to meaningful, globally accessible interpretation.
 
 ![image 9](appendix/comprehend_result_1.PNG)
 
