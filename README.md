@@ -66,15 +66,44 @@ The analytical pipeline successfully processed all five protest images, yielding
 A comparative analysis of the results from the AWS tools against the original source imagery demonstrates the outstanding efficacy and accuracy of the implemented methodology. By implementing these tools, the project successfully achieved its objectives to extract, translate, and interpret the critical messages being articulated by Mexican women during the protests. The data produced accurately reflects the reality of the expressions found on the posters, confirming the utility of these technological solutions for contemporary social and political research. This validated data is now ready to be shared with the international community, establishing a clear communication channel where these vital issues, which transcend nationality and gender, can be openly discussed and brought to the forefront of the global conversation. Furthermore, this project is highly scalable; the established data processing pipeline can be implemented and further developed to analyze future protest data with minimal modification, ensuring its continued relevance.
 
 ## Estimated Cost of AWS Services
-(**TODO: Determine price per unit for each AWS service**)
 
-**S3**: 5 images (276 KB, 13 KB, 11 KB, 44 KB, 10KB), retreived about 5 times during development
+**S3**: 
 
-**Rekognition**: 5 images processed about 5 times 
+- 5 images (354 KB) stored once
 
-**Translation**: 5 phrases, 28 words translated about 5 times
+- 5 images retreived about 10 times during development
 
-**Comprehend**: 36 words/162 characters, sentiment and comprehend analysis run about 5 times
+- [$0.005](https://aws.amazon.com/s3/pricing/) per 1,000 requests for S3 Standard PUT 
+
+- [$0.0004](https://aws.amazon.com/s3/pricing/) per 1,000 requests for S3 Standard GET
+
+- **Cost**: $0.000025
+
+**Rekognition**: 
+
+- 5 images processed about 10 times
+
+- [$0.001](https://aws.amazon.com/rekognition/pricing/?nc1=h_ls) for first million images
+
+- **Cost**: < $0.0000001
+
+**Translation**: 
+
+- 5 phrases/142 characters translated about 10 times
+
+- [$15.00](https://aws.amazon.com/translate/pricing/?nc1=h_ls) per million characters
+
+- **Cost**: $0.0213
+
+**Comprehend**: 
+
+- Key phrase extraction and sentiment analysis both run about 10 times
+
+- [$0.0001](https://aws.amazon.com/comprehend/pricing/?nc1=h_ls) for each service
+
+- **Cost**: $0.002
+
+**Total Estimated Cost**: $0.02333
 
 ## References
 “El 8-M de Ciudad de México, en imágenes”. (2023, March 8). El País. Recovered from: https://elpais.com/mexico/2023-03-08/el-8m-de-ciudad-de-mexico-en-imagenes.html#foto_gal_2
