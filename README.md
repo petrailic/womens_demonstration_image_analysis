@@ -42,18 +42,150 @@ The preparatory step for utilizing the analytical tools involved ensuring data a
 ## Second step: Data Recognition
 The AWS Rekognition service was selected for the text extraction phase due to its superior efficacy in handling creative, non standard, and artistically hand made text present on the protest banners. Amazon Rekognition excels in accurately identifying text under these challenging conditions, which often pose difficulties for standard programs. The recognition code first initiates by accessing and retrieving the image data directly from the previously provisioned S3 bucket. Modifications were integrated into the standard class script to immediately generate a literal, word-for-word translation of the identified phrases. The output of this crucial step is a clean dataset of the original phrases in Spanish, exactly as displayed on the protest posters, prepared for the subsequent stages.
 
+### Implemented code: 
+        import pprint
+        import boto3
+        print("📚 Setting up the environment...")
+        pp = pprint.PrettyPrinter(indent=2)
+        rekognition = boto3.client("rekognition")
+        print("✅ Environment setup complete!")
+        print(f"🌍 Using AWS region: {rekognition.meta.region_name}")
+        rekognition = boto3.client("rekognition", region_name="eu-west-1")
+        
+        image_names = ["image1.PNG", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg"]
+        print("🔍 Analyzing images for text...")
+        
+        for img in image_names:
+            S3_BUCKET = "demonstration-image-analysis"
+            S3_KEY = img
+            try:
+                response = rekognition.detect_text(
+                    Image={
+                        "S3Object": {
+                            "Bucket": S3_BUCKET,
+                            "Name": S3_KEY,
+                        }
+                    }
+                )
+        # Keep only LINE detections (full phrases)
+        lines = [t['DetectedText'] for t in response['TextDetections'] if t['Type'] == 'LINE']
+
+        # Join all lines into a single phrase/string
+        full_phrase = ' '.join(lines)
+
+        print("\n✅ Full phrase detected in {img}:")
+        print(full_phrase)
+
+    except Exception as e:
+        print(f"❌ Error analyzing image: {str(e)}")
+
+### Results: 
 ![image 7](appendix/recognition_result.PNG)
 
 ## Third Step: Data Translation
 Following the successful and adequate identification of the banners, the data is ready for the translation phase. This crucial step utilizes a high-utility translation service, to bridge the linguistic gap and facilitate understanding for global audiences. The modificatiosn made to the code provided in class were the accurate identification of the source language to create the expected results and some restructing to process multiple phrases at once. The output of this phase is the English translation of the protest messages, whose accuracy and contextual relevance of these translations were rigorously validated by a project participant who is a native Spanish speaker with direct cultural context of the protests, ensuring the actual purpose of the messages shared globally.
+### Implemented code:
 
+      from pprint import PrettyPrinter
+      import boto3
+      print("📚 Setting up the environment...")
+      pp = PrettyPrinter(indent=2)
+      translate = boto3.client("translate")
+      print("✅ Environment setup complete!")
+      print(f"🌍 Using AWS region: {translate.meta.region_name}")
+      # Simple translation from Spanish to English
+      print("🔄 Translating from Spanish to English...")
+      
+      spanish_texts = ["MERECEMOS - VIVIR SIN MIEDO", 
+                       "QUIERO VIVIR NO SOBREVIVIR", 
+                       "VALIENTES YA SOMOS, a QUERMOS SER LIBRES", 
+                       "ESTAR VIVA NO DEBERÍA SER UN LOGRO",
+                       "YO NOFESTEJO CONMEMORO y PIDO JUSTICIA!"]
+      for txt in spanish_texts:
+          try:
+              response = translate.translate_text(Text=txt, SourceLanguageCode="es", TargetLanguageCode="en")
+              print("\n📝 Translation details:")
+              print(f"Original text (Spanish): {txt}")
+              print(f"Translated text (English): {response['TranslatedText']}")
+      
+              # print("\n📦 Raw response from AWS:")
+              # pp.pprint(response)
+              
+          except Exception as e:
+              print(f"❌ Error during translation: {str(e)}")
+
+### Results:
 ![image 8](appendix/translation_result.PNG)
 
 
 ## Fourth Step: Comprehend the Data
 The final stage of this analysis involved interpreting the translated protest messages through the AWS Comprehend service. This step focuses on synthesizing the textual data into an overarching understanding of the themes and emotional tone present in the banners. Using sentiment analysis and key-phrase extraction, AWS Comprehend identifies the dominant sentiments expressed in the messages as well as the recurring concepts central to the movement. The resulting outputs provide a structured summary of the protesters’ demands and perspectives, completing the analytical pipeline from visual documentation to meaningful, globally accessible interpretation.
+### Implemented code:
+      # Import required libraries and set up our environment
+      import pprint
+      import boto3
+      
+      print("📚 Setting up the environment...")
+      # Initialize pretty printer for better output formatting
+      pp = pprint.PrettyPrinter(indent=2)
+      # Create Comprehend client
+      comprehend = boto3.client(service_name="comprehend", region_name="eu-west-1")
+      
+      print("✅ Environment setup complete!")
+      print(f"🌍 Using AWS region: {comprehend.meta.region_name}")
+      
+      # Sentiment analysis
+      print("Sentiment analysis on translated image text...")
+      
+      text = (
+          "WE DESERVE - TO LIVE WITHOUT FEAR. "
+          "I WANT TO LIVE NOT SURVIVE. "
+          "WE ARE ALREADY BRAVE, we WANT TO BE FREE. "
+          "BEING ALIVE SHOULDN'T BE AN ACHIEVEMENT. "
+          "I DON'T CELEBRATE I COMMEMORATE and ASK FOR JUSTICE!"
+      )
+      
+      try:
+          response = comprehend.detect_sentiment(Text=text, LanguageCode="en")
+      
+          print("\n📝 Input text:")
+          print("-" * 40)
+          print(text)
+          print("-" * 40)
+      
+          print("\n💭 Sentiment analysis:")
+          print(f"Overall sentiment: {response['Sentiment']}")
+          print("\nSentiment scores:")
+          for sentiment, score in response["SentimentScore"].items():
+              print(f"- {sentiment}: {score:.2%}")
+      
+      except Exception as e:
+          print(f"❌ Error: {str(e)}")
+      
+          # Key phrase detection
+      print("🔑 Testing key phrase detection...")
+      
+      try:
+          print("\n🔍 Analyzing key phrases in text:")
+      
+          print(f'\n📝 Text: "{text}"')
+          response = comprehend.detect_key_phrases(Text=text, LanguageCode="en")
+      
+          if response["KeyPhrases"]:
+              print("Found key phrases:")
+              for phrase in response["KeyPhrases"]:
+                  print(f"- {phrase['Text']}: {phrase['Score']:.2%} confidence")
+          else:
+              print("No key phrases found.")
+      
+          # print("\n📦 Raw response:")
+          # pp.pprint(response)
+      except Exception as e:
+          print(f"❌ Error: {str(e)}")
 
+### Results:
 ![image 9](appendix/comprehend_result_1.PNG)
+
 
 ![image 10](appendix/comprehend_result_2.PNG)
 
