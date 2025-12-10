@@ -115,8 +115,11 @@ Following the successful and adequate identification of the banners, the data is
               print(f"❌ Error during translation: {str(e)}")
 
 ### Results:
+#### Code Output: 
 ![image 8](appendix/translation_result.PNG)
 
+#### Visualization: 
+![image 9](appendix/table1.PNG)
 
 ## Fourth Step: Comprehend the Data
 The final stage of this analysis involved interpreting the translated protest messages through the AWS Comprehend service. This step focuses on synthesizing the textual data into an overarching understanding of the themes and emotional tone present in the banners. Using sentiment analysis and key-phrase extraction, AWS Comprehend identifies the dominant sentiments expressed in the messages as well as the recurring concepts central to the movement. The resulting outputs provide a structured summary of the protesters’ demands and perspectives, completing the analytical pipeline from visual documentation to meaningful, globally accessible interpretation.
@@ -184,11 +187,18 @@ The final stage of this analysis involved interpreting the translated protest me
           print(f"❌ Error: {str(e)}")
 
 ### Results:
-![image 9](appendix/comprehend_result_1.PNG)
 
+#### Code Output: 
+![image 10](appendix/comprehend_result_1.PNG)
 
-![image 10](appendix/comprehend_result_2.PNG)
+#### Visualization: 
+![image 11](appendix/chart1.PNG)
 
+#### Code Output: 
+![image 12](appendix/comprehend_result_2.PNG)
+
+#### Visualization: 
+![image 13](appendix/table2.PNG)
 
 ## Results 
 The analytical pipeline successfully processed all five protest images, yielding clear extractions, accurate translations, and a structured interpretation of the underlying messages. After the text recognition and translation phases, the combined outputs of the comprehend phase illuminate the protesters’ shared narrative. The banners convey fear and frustration with the systemic violence affecting women in Mexico, but they also express resilience and collective strength. Themes of fearlessness, freedom, survival, dignity, and justice emerged as central to the demonstrators’ messages. The successful identification of these themes confirms the effectiveness of the AWS-based pipeline in capturing not only the literal content of the posters but also their emotional and political messages.
